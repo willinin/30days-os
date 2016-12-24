@@ -1,0 +1,40 @@
+text size :    303(0x0012F)
+data size :     19(0x00013)
+bss  size :      0(0x00000)
+
+0x00000024 : (.text)
+0x00000024 : _HariMain
+0x0000008F : _api_end
+0x0000008F : (.text)
+0x00000096 : _api_openwin
+0x00000096 : (.text)
+0x000000B8 : _api_putstrwin
+0x000000B8 : (.text)
+0x000000E0 : _api_boxfilwin
+0x000000E0 : (.text)
+0x00000108 : _api_initmalloc
+0x00000108 : (.text)
+0x00000129 : _api_malloc
+0x00000129 : (.text)
+0x0000013E : _api_getkey
+0x0000013E : (.text)
+0x0000014A : (.text)
+0x0000014A : _HariStartup
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000400 : (.data)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)

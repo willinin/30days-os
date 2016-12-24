@@ -1,0 +1,35 @@
+     1 00000000                                 [FORMAT "WCOFF"]
+     2 00000000                                 [INSTRSET "i486p"]
+     3 00000000                                 [OPTIMIZE 1]
+     4 00000000                                 [OPTION 1]
+     5 00000000                                 [BITS 32]
+     6 00000000                                 	EXTERN	_api_addr
+     7 00000000                                 	EXTERN	_sprintf
+     8 00000000                                 	EXTERN	_api_putstr0
+     9 00000000                                 	EXTERN	_api_end
+    10 00000000                                 [FILE "hello4.c"]
+    11                                          [SECTION .data]
+    12 00000000                                 LC0:
+    13 00000000 30 78 25 78 00                  	DB	"0x%x",0x00
+    14                                          [SECTION .text]
+    15 00000000                                 	GLOBAL	_HariMain
+    16 00000000                                 _HariMain:
+    17 00000000 55                              	PUSH	EBP
+    18 00000001 89 E5                           	MOV	EBP,ESP
+    19 00000003 53                              	PUSH	EBX
+    20 00000004 83 EC 24                        	SUB	ESP,36
+    21 00000007 8D 45 D8                        	LEA	EAX,DWORD [-40+EBP]
+    22 0000000A 8D 5D DC                        	LEA	EBX,DWORD [-36+EBP]
+    23 0000000D 50                              	PUSH	EAX
+    24 0000000E C7 45 D8 00000064               	MOV	DWORD [-40+EBP],100
+    25 00000015 E8 [00000000]                   	CALL	_api_addr
+    26 0000001A 50                              	PUSH	EAX
+    27 0000001B 68 [00000000]                   	PUSH	LC0
+    28 00000020 53                              	PUSH	EBX
+    29 00000021 E8 [00000000]                   	CALL	_sprintf
+    30 00000026 53                              	PUSH	EBX
+    31 00000027 E8 [00000000]                   	CALL	_api_putstr0
+    32 0000002C E8 [00000000]                   	CALL	_api_end
+    33 00000031 8B 5D FC                        	MOV	EBX,DWORD [-4+EBP]
+    34 00000034 C9                              	LEAVE
+    35 00000035 C3                              	RET

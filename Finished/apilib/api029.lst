@@ -1,0 +1,18 @@
+     1 00000000                                 [FORMAT "WCOFF"]
+     2 00000000                                 [INSTRSET "i486p"]
+     3 00000000                                 [BITS 32]
+     4 00000000                                 [FILE "api029.nas"]
+     5 00000000                                 
+     6 00000000                                 		GLOBAL	_api_addr2
+     7 00000000                                 
+     8                                          [SECTION .text]
+     9 00000000                                 
+    10 00000000                                 _api_addr2:	; void api_addr2(int gdt,int addr);
+    11 00000000 BA 0000001D                     		MOV		EDX,29
+    12 00000005 8B 44 24 04                     		MOV		EAX,[ESP+4]		; 
+    13 00000009 8B 6C 24 08                     		MOV		EBP,[ESP+8]
+    14 0000000D 0F 01 00                        		SGDT	[EAX]
+    15 00000010 0F 00 C1                        		SLDT	CX
+    16 00000013 66 8C DB                        		MOV		BX,DS
+    17 00000016 CD 40                           		INT		0x40
+    18 00000018 C3                              		RET

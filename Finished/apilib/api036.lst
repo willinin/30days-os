@@ -1,0 +1,14 @@
+     1 00000000                                 [FORMAT "WCOFF"]
+     2 00000000                                 [INSTRSET "i486p"]
+     3 00000000                                 [BITS 32]
+     4 00000000                                 [FILE "api036.nas"]
+     5 00000000                                 
+     6 00000000                                 		GLOBAL	_api_exit
+     7 00000000                                 
+     8                                          [SECTION .text]
+     9 00000000                                 
+    10 00000000                                 _api_exit:		; void api_exit(int x)
+    11 00000000 BA 00000024                     		MOV		EDX,36
+    12 00000005 8B 44 24 08                     		MOV		EAX,[ESP+8]
+    13 00000009 CD 40                           		INT		0x40
+    14 0000000B C3                              		RET

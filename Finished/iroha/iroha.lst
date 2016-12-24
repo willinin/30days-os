@@ -1,0 +1,30 @@
+     1 00000000                                 [FORMAT "WCOFF"]
+     2 00000000                                 [INSTRSET "i486p"]
+     3 00000000                                 [OPTIMIZE 1]
+     4 00000000                                 [OPTION 1]
+     5 00000000                                 [BITS 32]
+     6 00000000                                 	EXTERN	_s.0
+     7 00000000                                 	EXTERN	_api_putstr0
+     8 00000000                                 	EXTERN	_api_end
+     9 00000000                                 [FILE "iroha.c"]
+    10                                          [SECTION .data]
+    11 00000000                                 _s.0:
+    12 00000000 B2                              	DB	-78
+    13 00000001 DB                              	DB	-37
+    14 00000002 CA                              	DB	-54
+    15 00000003 C6                              	DB	-58
+    16 00000004 CE                              	DB	-50
+    17 00000005 CD                              	DB	-51
+    18 00000006 C4                              	DB	-60
+    19 00000007 0A                              	DB	10
+    20 00000008 00                              	DB	0
+    21                                          [SECTION .text]
+    22 00000000                                 	GLOBAL	_HariMain
+    23 00000000                                 _HariMain:
+    24 00000000 55                              	PUSH	EBP
+    25 00000001 89 E5                           	MOV	EBP,ESP
+    26 00000003 68 [00000000]                   	PUSH	_s.0
+    27 00000008 E8 [00000000]                   	CALL	_api_putstr0
+    28 0000000D 58                              	POP	EAX
+    29 0000000E C9                              	LEAVE
+    30 0000000F E9 [00000000]                   	JMP	_api_end

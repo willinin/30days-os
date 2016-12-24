@@ -1,0 +1,23 @@
+     1 00000000                                 [FORMAT "WCOFF"]
+     2 00000000                                 [INSTRSET "i486p"]
+     3 00000000                                 [OPTIMIZE 1]
+     4 00000000                                 [OPTION 1]
+     5 00000000                                 [BITS 32]
+     6 00000000                                 	EXTERN	_api_addr2
+     7 00000000                                 	EXTERN	_api_end
+     8 00000000                                 [FILE "hello3.c"]
+     9                                          [SECTION .text]
+    10 00000000                                 	GLOBAL	_HariMain
+    11 00000000                                 _HariMain:
+    12 00000000 55                              	PUSH	EBP
+    13 00000001 89 E5                           	MOV	EBP,ESP
+    14 00000003 83 EC 14                        	SUB	ESP,20
+    15 00000006 8D 45 EC                        	LEA	EAX,DWORD [-20+EBP]
+    16 00000009 50                              	PUSH	EAX
+    17 0000000A 8D 45 F0                        	LEA	EAX,DWORD [-16+EBP]
+    18 0000000D 50                              	PUSH	EAX
+    19 0000000E C7 45 EC 0000000A               	MOV	DWORD [-20+EBP],10
+    20 00000015 E8 [00000000]                   	CALL	_api_addr2
+    21 0000001A E8 [00000000]                   	CALL	_api_end
+    22 0000001F C9                              	LEAVE
+    23 00000020 C3                              	RET

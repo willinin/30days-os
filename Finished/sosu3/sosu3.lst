@@ -1,0 +1,68 @@
+     1 00000000                                 [FORMAT "WCOFF"]
+     2 00000000                                 [INSTRSET "i486p"]
+     3 00000000                                 [OPTIMIZE 1]
+     4 00000000                                 [OPTION 1]
+     5 00000000                                 [BITS 32]
+     6 00000000                                 	EXTERN	_api_initmalloc
+     7 00000000                                 	EXTERN	_api_malloc
+     8 00000000                                 	EXTERN	_api_end
+     9 00000000                                 	EXTERN	_sprintf
+    10 00000000                                 	EXTERN	_api_putstr0
+    11 00000000                                 [FILE "sosu3.c"]
+    12                                          [SECTION .data]
+    13 00000000                                 LC0:
+    14 00000000 25 64 20 00                     	DB	"%d ",0x00
+    15                                          [SECTION .text]
+    16 00000000                                 	GLOBAL	_HariMain
+    17 00000000                                 _HariMain:
+    18 00000000 55                              	PUSH	EBP
+    19 00000001 89 E5                           	MOV	EBP,ESP
+    20 00000003 57                              	PUSH	EDI
+    21 00000004 56                              	PUSH	ESI
+    22 00000005 31 F6                           	XOR	ESI,ESI
+    23 00000007 53                              	PUSH	EBX
+    24 00000008 52                              	PUSH	EDX
+    25 00000009 52                              	PUSH	EDX
+    26 0000000A E8 [00000000]                   	CALL	_api_initmalloc
+    27 0000000F 68 00002710                     	PUSH	10000
+    28 00000014 E8 [00000000]                   	CALL	_api_malloc
+    29 00000019 89 C7                           	MOV	EDI,EAX
+    30 0000001B 58                              	POP	EAX
+    31 0000001C                                 L6:
+    32 0000001C C6 04 3E 00                     	MOV	BYTE [ESI+EDI*1],0
+    33 00000020 46                              	INC	ESI
+    34 00000021 81 FE 0000270F                  	CMP	ESI,9999
+    35 00000027 7E F3                           	JLE	L6
+    36 00000029 BE 00000002                     	MOV	ESI,2
+    37 0000002E                                 L17:
+    38 0000002E 80 3C 3E 00                     	CMP	BYTE [ESI+EDI*1],0
+    39 00000032 74 16                           	JE	L23
+    40 00000034                                 L9:
+    41 00000034 46                              	INC	ESI
+    42 00000035 81 FE 0000270F                  	CMP	ESI,9999
+    43 0000003B 7E F1                           	JLE	L17
+    44 0000003D E8 [00000000]                   	CALL	_api_end
+    45 00000042 8D 65 F4                        	LEA	ESP,DWORD [-12+EBP]
+    46 00000045 5B                              	POP	EBX
+    47 00000046 5E                              	POP	ESI
+    48 00000047 5F                              	POP	EDI
+    49 00000048 5D                              	POP	EBP
+    50 00000049 C3                              	RET
+    51 0000004A                                 L23:
+    52 0000004A 56                              	PUSH	ESI
+    53 0000004B 8D 5D EC                        	LEA	EBX,DWORD [-20+EBP]
+    54 0000004E 68 [00000000]                   	PUSH	LC0
+    55 00000053 53                              	PUSH	EBX
+    56 00000054 E8 [00000000]                   	CALL	_sprintf
+    57 00000059 53                              	PUSH	EBX
+    58 0000005A E8 [00000000]                   	CALL	_api_putstr0
+    59 0000005F 83 C4 10                        	ADD	ESP,16
+    60 00000062 8D 04 36                        	LEA	EAX,DWORD [ESI+ESI*1]
+    61 00000065 3D 0000270F                     	CMP	EAX,9999
+    62 0000006A 7F C8                           	JG	L9
+    63 0000006C                                 L16:
+    64 0000006C C6 04 38 01                     	MOV	BYTE [EAX+EDI*1],1
+    65 00000070 01 F0                           	ADD	EAX,ESI
+    66 00000072 3D 0000270F                     	CMP	EAX,9999
+    67 00000077 7E F3                           	JLE	L16
+    68 00000079 EB B9                           	JMP	L9
