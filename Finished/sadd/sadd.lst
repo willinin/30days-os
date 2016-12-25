@@ -6,130 +6,135 @@
      6 00000000                                 	EXTERN	_api_var_create
      7 00000000                                 	EXTERN	_api_var_read
      8 00000000                                 	EXTERN	_api_var_wrt
-     9 00000000                                 	EXTERN	_sprintf
-    10 00000000                                 	EXTERN	_api_putstr0
-    11 00000000                                 [FILE "sadd.c"]
-    12                                          [SECTION .data]
-    13 00000000                                 LC0:
-    14 00000000 73 76 61 72 00                  	DB	"svar",0x00
-    15 00000005                                 LC1:
-    16 00000005 73 6E 75 6D 00                  	DB	"snum",0x00
-    17 0000000A                                 LC2:
-    18 0000000A 73 68 61 72 65 3D 25 64 2C 62   	DB	"share=%d,but share+1=%d",0x0A,0x00
+     9 00000000                                 	EXTERN	_api_lock
+    10 00000000                                 	EXTERN	_api_unlock
+    11 00000000                                 	EXTERN	_sprintf
+    12 00000000                                 	EXTERN	_api_putstr0
+    13 00000000                                 	EXTERN	_api_end
+    14 00000000                                 [FILE "sadd.c"]
+    15                                          [SECTION .data]
+    16 00000000                                 LC0:
+    17 00000000 73 76 61 72 00                  	DB	"svar",0x00
+    18 00000005                                 LC1:
+    19 00000005 73 6E 75 6D 00                  	DB	"snum",0x00
+    20 0000000A                                 LC2:
+    21 0000000A 73 68 61 72 65 3D 25 64 2C 62   	DB	"share=%d,but share+1=%d",0x0A,0x00
        00000014 75 74 20 73 68 61 72 65 2B 31 
        0000001E 3D 25 64 0A 00 
-    19                                          [SECTION .text]
-    20 00000000                                 	GLOBAL	_HariMain
-    21 00000000                                 _HariMain:
-    22 00000000 55                              	PUSH	EBP
-    23 00000001 89 E5                           	MOV	EBP,ESP
-    24 00000003 56                              	PUSH	ESI
-    25 00000004 53                              	PUSH	EBX
-    26 00000005 6A 01                           	PUSH	1
-    27 00000007 68 [00000000]                   	PUSH	LC0
-    28 0000000C E8 [00000000]                   	CALL	_api_var_create
-    29 00000011 5B                              	POP	EBX
-    30 00000012 5A                              	POP	EDX
-    31 00000013 48                              	DEC	EAX
-    32 00000014 0F 84 000000FE                  	JE	L12
-    33 0000001A                                 L2:
-    34 0000001A 6A 01                           	PUSH	1
-    35 0000001C 68 [00000005]                   	PUSH	LC1
-    36 00000021 E8 [00000000]                   	CALL	_api_var_create
-    37 00000026 5A                              	POP	EDX
-    38 00000027 59                              	POP	ECX
-    39 00000028 48                              	DEC	EAX
-    40 00000029 0F 84 000000D3                  	JE	L13
-    41 0000002F                                 L3:
-    42 0000002F 6A 01                           	PUSH	1
-    43 00000031 68 [00000005]                   	PUSH	LC1
-    44 00000036 E8 [00000000]                   	CALL	_api_var_read
-    45 0000003B 59                              	POP	ECX
-    46 0000003C 5B                              	POP	EBX
-    47 0000003D 85 C0                           	TEST	EAX,EAX
-    48 0000003F 0F 84 000000A7                  	JE	L14
-    49 00000045                                 L4:
-    50 00000045 6A 01                           	PUSH	1
-    51 00000047 68 [00000005]                   	PUSH	LC1
-    52 0000004C E8 [00000000]                   	CALL	_api_var_read
-    53 00000051 40                              	INC	EAX
-    54 00000052 50                              	PUSH	EAX
-    55 00000053 6A 01                           	PUSH	1
-    56 00000055 68 [00000005]                   	PUSH	LC1
-    57 0000005A E8 [00000000]                   	CALL	_api_var_wrt
-    58 0000005F 83 C4 14                        	ADD	ESP,20
-    59 00000062                                 L5:
-    60 00000062 6A 01                           	PUSH	1
-    61 00000064 68 [00000005]                   	PUSH	LC1
-    62 00000069 E8 [00000000]                   	CALL	_api_var_read
-    63 0000006E 5B                              	POP	EBX
-    64 0000006F 5A                              	POP	EDX
-    65 00000070 48                              	DEC	EAX
-    66 00000071 7E EF                           	JLE	L5
-    67 00000073                                 L8:
-    68 00000073 6A 01                           	PUSH	1
-    69 00000075 68 [00000000]                   	PUSH	LC0
-    70 0000007A E8 [00000000]                   	CALL	_api_var_read
-    71 0000007F 6A 01                           	PUSH	1
-    72 00000081 68 [00000000]                   	PUSH	LC0
-    73 00000086 89 C3                           	MOV	EBX,EAX
-    74 00000088 E8 [00000000]                   	CALL	_api_var_read
-    75 0000008D 5A                              	POP	EDX
-    76 0000008E 59                              	POP	ECX
-    77 0000008F 40                              	INC	EAX
-    78 00000090 50                              	PUSH	EAX
-    79 00000091 6A 01                           	PUSH	1
-    80 00000093 68 [00000000]                   	PUSH	LC0
-    81 00000098 E8 [00000000]                   	CALL	_api_var_wrt
-    82 0000009D 6A 01                           	PUSH	1
-    83 0000009F 68 [00000000]                   	PUSH	LC0
-    84 000000A4 E8 [00000000]                   	CALL	_api_var_read
-    85 000000A9 83 C4 1C                        	ADD	ESP,28
-    86 000000AC 89 C2                           	MOV	EDX,EAX
-    87 000000AE 29 D8                           	SUB	EAX,EBX
-    88 000000B0 48                              	DEC	EAX
-    89 000000B1 7E C0                           	JLE	L8
-    90 000000B3 52                              	PUSH	EDX
-    91 000000B4 53                              	PUSH	EBX
-    92 000000B5 68 [0000000A]                   	PUSH	LC2
-    93 000000BA 56                              	PUSH	ESI
-    94 000000BB E8 [00000000]                   	CALL	_sprintf
-    95 000000C0 56                              	PUSH	ESI
-    96 000000C1 E8 [00000000]                   	CALL	_api_putstr0
-    97 000000C6 6A 01                           	PUSH	1
-    98 000000C8 68 [00000005]                   	PUSH	LC1
-    99 000000CD E8 [00000000]                   	CALL	_api_var_read
-   100 000000D2 5A                              	POP	EDX
-   101 000000D3 59                              	POP	ECX
-   102 000000D4 48                              	DEC	EAX
-   103 000000D5 50                              	PUSH	EAX
-   104 000000D6 6A 01                           	PUSH	1
-   105 000000D8 68 [00000005]                   	PUSH	LC1
-   106 000000DD E8 [00000000]                   	CALL	_api_var_wrt
-   107 000000E2 83 C4 20                        	ADD	ESP,32
-   108 000000E5 8D 65 F8                        	LEA	ESP,DWORD [-8+EBP]
-   109 000000E8 5B                              	POP	EBX
-   110 000000E9 5E                              	POP	ESI
-   111 000000EA 5D                              	POP	EBP
-   112 000000EB C3                              	RET
-   113 000000EC                                 L14:
-   114 000000EC 6A 00                           	PUSH	0
-   115 000000EE 6A 01                           	PUSH	1
-   116 000000F0 68 [00000000]                   	PUSH	LC0
-   117 000000F5 E8 [00000000]                   	CALL	_api_var_wrt
-   118 000000FA 83 C4 0C                        	ADD	ESP,12
-   119 000000FD E9 FFFFFF43                     	JMP	L4
-   120 00000102                                 L13:
-   121 00000102 6A 00                           	PUSH	0
-   122 00000104 6A 01                           	PUSH	1
-   123 00000106 68 [00000005]                   	PUSH	LC1
-   124 0000010B E8 [00000000]                   	CALL	_api_var_wrt
-   125 00000110 83 C4 0C                        	ADD	ESP,12
-   126 00000113 E9 FFFFFF17                     	JMP	L3
-   127 00000118                                 L12:
-   128 00000118 6A 00                           	PUSH	0
-   129 0000011A 6A 01                           	PUSH	1
-   130 0000011C 68 [00000000]                   	PUSH	LC0
-   131 00000121 E8 [00000000]                   	CALL	_api_var_wrt
-   132 00000126 83 C4 0C                        	ADD	ESP,12
-   133 00000129 E9 FFFFFEEC                     	JMP	L2
+    22                                          [SECTION .text]
+    23 00000000                                 	GLOBAL	_HariMain
+    24 00000000                                 _HariMain:
+    25 00000000 55                              	PUSH	EBP
+    26 00000001 89 E5                           	MOV	EBP,ESP
+    27 00000003 57                              	PUSH	EDI
+    28 00000004 56                              	PUSH	ESI
+    29 00000005 53                              	PUSH	EBX
+    30 00000006 56                              	PUSH	ESI
+    31 00000007 6A 01                           	PUSH	1
+    32 00000009 68 [00000000]                   	PUSH	LC0
+    33 0000000E E8 [00000000]                   	CALL	_api_var_create
+    34 00000013 59                              	POP	ECX
+    35 00000014 5B                              	POP	EBX
+    36 00000015 48                              	DEC	EAX
+    37 00000016 0F 84 0000010F                  	JE	L12
+    38 0000001C                                 L2:
+    39 0000001C 6A 01                           	PUSH	1
+    40 0000001E 68 [00000005]                   	PUSH	LC1
+    41 00000023 E8 [00000000]                   	CALL	_api_var_create
+    42 00000028 5F                              	POP	EDI
+    43 00000029 5A                              	POP	EDX
+    44 0000002A 48                              	DEC	EAX
+    45 0000002B 0F 84 000000E4                  	JE	L13
+    46 00000031                                 L3:
+    47 00000031 6A 01                           	PUSH	1
+    48 00000033 68 [00000005]                   	PUSH	LC1
+    49 00000038 E8 [00000000]                   	CALL	_api_var_read
+    50 0000003D 5B                              	POP	EBX
+    51 0000003E 5E                              	POP	ESI
+    52 0000003F 85 C0                           	TEST	EAX,EAX
+    53 00000041 0F 84 000000B8                  	JE	L14
+    54 00000047                                 L4:
+    55 00000047 6A 01                           	PUSH	1
+    56 00000049 68 [00000005]                   	PUSH	LC1
+    57 0000004E E8 [00000000]                   	CALL	_api_var_read
+    58 00000053 40                              	INC	EAX
+    59 00000054 50                              	PUSH	EAX
+    60 00000055 6A 01                           	PUSH	1
+    61 00000057 68 [00000005]                   	PUSH	LC1
+    62 0000005C E8 [00000000]                   	CALL	_api_var_wrt
+    63 00000061 83 C4 14                        	ADD	ESP,20
+    64 00000064                                 L5:
+    65 00000064 6A 01                           	PUSH	1
+    66 00000066 68 [00000005]                   	PUSH	LC1
+    67 0000006B E8 [00000000]                   	CALL	_api_var_read
+    68 00000070 5A                              	POP	EDX
+    69 00000071 59                              	POP	ECX
+    70 00000072 48                              	DEC	EAX
+    71 00000073 7E EF                           	JLE	L5
+    72 00000075                                 L8:
+    73 00000075 E8 [00000000]                   	CALL	_api_lock
+    74 0000007A 6A 01                           	PUSH	1
+    75 0000007C 68 [00000000]                   	PUSH	LC0
+    76 00000081 E8 [00000000]                   	CALL	_api_var_read
+    77 00000086 6A 01                           	PUSH	1
+    78 00000088 68 [00000000]                   	PUSH	LC0
+    79 0000008D 89 C7                           	MOV	EDI,EAX
+    80 0000008F E8 [00000000]                   	CALL	_api_var_read
+    81 00000094 40                              	INC	EAX
+    82 00000095 50                              	PUSH	EAX
+    83 00000096 6A 01                           	PUSH	1
+    84 00000098 68 [00000000]                   	PUSH	LC0
+    85 0000009D E8 [00000000]                   	CALL	_api_var_wrt
+    86 000000A2 6A 01                           	PUSH	1
+    87 000000A4 68 [00000000]                   	PUSH	LC0
+    88 000000A9 E8 [00000000]                   	CALL	_api_var_read
+    89 000000AE 83 C4 24                        	ADD	ESP,36
+    90 000000B1 89 C3                           	MOV	EBX,EAX
+    91 000000B3 89 C6                           	MOV	ESI,EAX
+    92 000000B5 29 FB                           	SUB	EBX,EDI
+    93 000000B7 E8 [00000000]                   	CALL	_api_unlock
+    94 000000BC 4B                              	DEC	EBX
+    95 000000BD 7E B6                           	JLE	L8
+    96 000000BF 56                              	PUSH	ESI
+    97 000000C0 57                              	PUSH	EDI
+    98 000000C1 68 [0000000A]                   	PUSH	LC2
+    99 000000C6 FF 75 F0                        	PUSH	DWORD [-16+EBP]
+   100 000000C9 E8 [00000000]                   	CALL	_sprintf
+   101 000000CE FF 75 F0                        	PUSH	DWORD [-16+EBP]
+   102 000000D1 E8 [00000000]                   	CALL	_api_putstr0
+   103 000000D6 6A 01                           	PUSH	1
+   104 000000D8 68 [00000005]                   	PUSH	LC1
+   105 000000DD E8 [00000000]                   	CALL	_api_var_read
+   106 000000E2 48                              	DEC	EAX
+   107 000000E3 50                              	PUSH	EAX
+   108 000000E4 6A 01                           	PUSH	1
+   109 000000E6 68 [00000005]                   	PUSH	LC1
+   110 000000EB E8 [00000000]                   	CALL	_api_var_wrt
+   111 000000F0 83 C4 28                        	ADD	ESP,40
+   112 000000F3 8D 65 F4                        	LEA	ESP,DWORD [-12+EBP]
+   113 000000F6 5B                              	POP	EBX
+   114 000000F7 5E                              	POP	ESI
+   115 000000F8 5F                              	POP	EDI
+   116 000000F9 5D                              	POP	EBP
+   117 000000FA E9 [00000000]                   	JMP	_api_end
+   118 000000FF                                 L14:
+   119 000000FF 6A 00                           	PUSH	0
+   120 00000101 6A 01                           	PUSH	1
+   121 00000103 68 [00000000]                   	PUSH	LC0
+   122 00000108 E8 [00000000]                   	CALL	_api_var_wrt
+   123 0000010D 83 C4 0C                        	ADD	ESP,12
+   124 00000110 E9 FFFFFF32                     	JMP	L4
+   125 00000115                                 L13:
+   126 00000115 6A 00                           	PUSH	0
+   127 00000117 6A 01                           	PUSH	1
+   128 00000119 68 [00000005]                   	PUSH	LC1
+   129 0000011E E8 [00000000]                   	CALL	_api_var_wrt
+   130 00000123 83 C4 0C                        	ADD	ESP,12
+   131 00000126 E9 FFFFFF06                     	JMP	L3
+   132 0000012B                                 L12:
+   133 0000012B 6A 00                           	PUSH	0
+   134 0000012D 6A 01                           	PUSH	1
+   135 0000012F 68 [00000000]                   	PUSH	LC0
+   136 00000134 E8 [00000000]                   	CALL	_api_var_wrt
+   137 00000139 83 C4 0C                        	ADD	ESP,12
+   138 0000013C E9 FFFFFEDB                     	JMP	L2
